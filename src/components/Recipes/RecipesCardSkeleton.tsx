@@ -1,32 +1,37 @@
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Separator } from '@/components/ui/separator'
 
-export const RecipeCardSkeleton = () => {
+export default function RecipeCardSkeleton() {
   return (
-    <div className="group rounded-xl">
-      <div className="relative h-full min-h-108 max-w-full overflow-hidden rounded-xl bg-muted md:aspect-5/4 lg:aspect-video">
-        <Skeleton className="absolute inset-0 h-full w-full rounded-xl" />
+    <Card className="overflow-hidden rounded-3xl p-2 shadow-sm">
+      {/* Image */}
+      <div className="relative aspect-square overflow-hidden rounded-2xl">
+        <Skeleton className="size-full rounded-2xl" />
 
-        <Skeleton className="absolute top-4 left-4 z-20 h-6 w-24 rounded-full" />
-
-        <div className="absolute inset-0 bg-[linear-gradient(transparent_20%,black_100%)] opacity-30" />
-
-        <div className="absolute inset-x-0 bottom-0 flex flex-col items-start p-4">
-          <Skeleton className="mb-3 h-6 w-2/3 bg-white/30" />
-
-          <div className="mb-4 w-full space-y-2">
-            <Skeleton className="h-4 w-full bg-white/25" />
-            <Skeleton className="h-4 w-3/4 bg-white/25" />
-          </div>
-
-          <Separator className="bg-white/30" />
-
-          <div className="mt-2 flex items-center gap-5">
-            <Skeleton className="h-6 w-20 rounded-full bg-white/25" />
-            <Skeleton className="h-6 w-32 rounded-full bg-white/25" />
-          </div>
-        </div>
+        {/* Time badge */}
+        <Skeleton className="absolute top-3 right-3 h-7 w-16 rounded-full" />
       </div>
-    </div>
+
+      <CardContent className="space-y-3 px-2 pt-3">
+        {/* Title */}
+        <Skeleton className="h-6 w-3/4" />
+
+        {/* Description */}
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-5/6" />
+        </div>
+
+        {/* Badges */}
+        <div className="flex gap-2 pt-1">
+          <Skeleton className="h-6 w-20 rounded-full" />
+          <Skeleton className="h-6 w-24 rounded-full" />
+        </div>
+      </CardContent>
+
+      <CardFooter className="px-2 pb-1">
+        <Skeleton className="h-11 w-full rounded-full" />
+      </CardFooter>
+    </Card>
   )
 }

@@ -17,11 +17,13 @@ import { Separator } from '../ui/separator'
 type CategoryFilterIconProps = {
   onCategorySelect?: (categorySlug: string) => void
   current?: string
+  dropDownMobile?: boolean
 }
 
 export default function CategoryFilterIcon({
   onCategorySelect,
   current,
+  dropDownMobile = false,
 }: CategoryFilterIconProps) {
   const { data: categories } = useSuspenseQuery(getCategoriesQuery())
 
@@ -36,7 +38,8 @@ export default function CategoryFilterIcon({
   return (
     <>
       {/* Mobile: horizontal scrollable pill list, no dropdown */}
-      <div className=" md:hidden">
+
+      <div className={`${dropDownMobile ? 'hidden' : ''} md:hidden`}>
         <Separator />
         <div className="space-y-3 py-3">
           <h4 className="text-sm">Select Category</h4>
@@ -60,7 +63,7 @@ export default function CategoryFilterIcon({
       </div>
 
       {/* Desktop: dropdown */}
-      <div className="hidden gap-2 md:flex">
+      <div className={`${dropDownMobile ? '' : 'hidden'} gap-2 md:flex`}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant={current ? 'default' : 'outline'}>

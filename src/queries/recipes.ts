@@ -1,6 +1,6 @@
-import { getRecipesFN } from '#/db/recipes'
+import { getRecipesFN, saveRecipeFn } from '#/db/recipes'
 import type { GetRecipesOptions, Recipe } from '#/schema/recipes'
-import { queryOptions } from '@tanstack/react-query'
+import { mutationOptions, queryOptions } from '@tanstack/react-query'
 
 type RecipesResponse = {
   recipes: Recipe[]
@@ -14,4 +14,13 @@ export const getRecipesQuery = (options: GetRecipesOptions = {}) =>
   queryOptions<RecipesResponse>({
     queryKey: ['recipes', options],
     queryFn: () => getRecipesFN({ data: options }),
+  })
+
+export const SaveRecipeMutation = () =>
+  mutationOptions({
+    mutationFn: (data: {
+      userId: string
+      recipeId: string
+      isLiked: boolean
+    }) => saveRecipeFn({ data }),
   })

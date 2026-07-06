@@ -1,4 +1,4 @@
-import { RecipeCardSkeleton } from './RecipesCardSkeleton'
+import RecipeCardSkeleton from './RecipesCardSkeleton'
 
 type Props = {
   count: number

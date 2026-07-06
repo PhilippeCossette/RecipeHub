@@ -1,7 +1,6 @@
-import { Suspense, useState } from 'react'
+import { Suspense } from 'react'
 import HomeRecipesSlider from './HomeRecipesSlider'
 import { RecipeGallerySkeleton } from './RecipeGallerySkeleton'
-import CategoryFilterIcon from '../Category/CategoryFilterIcon'
 
 export default function FeatureRecipes() {
   return (

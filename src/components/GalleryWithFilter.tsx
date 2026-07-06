@@ -11,23 +11,15 @@ import {
 import { cn } from '#/lib/utils.ts'
 import type { Recipe } from '#/schema/recipes'
 
-import CategoryFilterIcon from './Category/CategoryFilterIcon'
-import RecipeCard from './Recipes/RecipeCard'
+import RecipeCard, { RecipeCardSeeMore } from './Recipes/RecipeCard'
 
 export interface GalleryProps {
   items?: Recipe[]
   className?: string
-  onCategorySelect?: (categorySlug: string) => void
-  currentCategory?: string
   isLoading?: boolean
 }
 
-const GalleryWithFilter = ({
-  items,
-  className,
-  onCategorySelect,
-  currentCategory,
-}: GalleryProps) => {
+const GalleryWithFilter = ({ items, className }: GalleryProps) => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>()
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
@@ -51,11 +43,8 @@ const GalleryWithFilter = ({
 
   return (
     <section className={cn('mt-10 md:mt-0', className)}>
-      <div className="hidden shrink-0 w-full gap-2 md:flex justify-between mb-10">
-        <CategoryFilterIcon
-          onCategorySelect={onCategorySelect}
-          current={currentCategory}
-        />
+      <div className=" shrink-0 w-full gap-2 flex justify-between mb-10">
+        <h2 className="text-2xl font-bold">Latest Recipes</h2>
         <div className="hidden shrink-0  gap-2 md:flex justify-end ">
           <Button
             size="icon"
@@ -101,6 +90,9 @@ const GalleryWithFilter = ({
                 <RecipeCard recipe={item} />
               </CarouselItem>
             ))}
+            <CarouselItem>
+              <RecipeCardSeeMore to="/recipes" />
+            </CarouselItem>
           </CarouselContent>
         </Carousel>
         <div className="mt-8 flex justify-center gap-2">

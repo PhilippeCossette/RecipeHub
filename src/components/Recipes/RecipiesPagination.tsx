@@ -28,7 +28,7 @@ export function RecipesPagination() {
   if (data.totalPages <= 1) return null
 
   return (
-    <Pagination>
+    <Pagination className="mt-12">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious

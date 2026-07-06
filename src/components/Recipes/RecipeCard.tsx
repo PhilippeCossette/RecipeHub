@@ -1,17 +1,26 @@
-import { Link } from '@tanstack/react-router'
-import { Card, CardContent, CardFooter } from '@/components/ui/card'
+import { Link, useRouteContext } from '@tanstack/react-router'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { IconClock, IconUsers } from '@tabler/icons-react'
 import type { Recipe } from '#/schema/recipes'
+import SaveButton from '../Button/SaveButton'
+import { useQuery } from '@tanstack/react-query'
+import { getUserLikesQuery } from '#/queries/user'
 
 type RecipeCardProps = {
   recipe: Recipe
 }
 
 export default function RecipeCard({ recipe }: RecipeCardProps) {
+  const { user } = useRouteContext({
+    from: '__root__',
+  })
+  const { data: likedIds = [] } = useQuery(getUserLikesQuery(user?.id ?? ''))
   const totalTime =
     (recipe.prep_time_minutes ?? 0) + (recipe.cook_time_minutes ?? 0)
+
+  const isLiked = likedIds.includes(recipe.id)
 
   return (
     <Card className=" overflow-hidden rounded-3xl  p-2 shadow-sm">
@@ -35,7 +44,6 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
           </Badge>
         )}
       </div>
-
       <CardContent className="space-y-2 px-2 pt-3">
         <h3 className="text-lg font-semibold leading-tight">{recipe.title}</h3>
 
@@ -59,12 +67,40 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
           )}
         </div>
       </CardContent>
-
-      <CardFooter className="px-2 pb-1">
-        <Button asChild className="w-full rounded-full" size="lg">
+      <CardFooter className="px-2 pb-1 flex gap-2">
+        <Button asChild className="w-full flex-1 rounded-full" size="lg">
           <Link to={'/'}>View Recipe</Link>
         </Button>
+        <SaveButton
+          userId={user?.id ?? ''}
+          recipeId={recipe.id}
+          isLiked={isLiked}
+        />
       </CardFooter>
+    </Card>
+  )
+}
+
+type RecipeCardSeeMoreProps = {
+  to: string
+}
+
+export const RecipeCardSeeMore = ({ to }: RecipeCardSeeMoreProps) => {
+  return (
+    <Card className="border-none shadow-none text-center flex flex-col justify-center max-w-80 h-full">
+      <CardHeader className="flex flex-col items-center justify-center gap-2 py-10">
+        <h3 className="text-lg font-semibold leading-tight">
+          See More Recipes
+        </h3>
+        <p className="text-sm text-muted-foreground">
+          Explore our full collection of delicious recipes.
+        </p>
+      </CardHeader>
+      <CardContent className="flex items-center justify-center">
+        <Button asChild size="lg" variant="outline" className="rounded-full">
+          <Link to={to}>View All Recipes</Link>
+        </Button>
+      </CardContent>
     </Card>
   )
 }

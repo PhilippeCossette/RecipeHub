@@ -3,6 +3,7 @@ import { getUserFN } from '../db/auth'
 
 export const Route = createFileRoute('/_admin')({
   component: RouteComponent,
+
   beforeLoad: async () => {
     const user = await getUserFN()
     if (!user || user.role !== 'admin') {

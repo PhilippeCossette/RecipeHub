@@ -1,5 +1,10 @@
 import { getSupabaseServerClient } from '#/lib/supabase'
-import type { GetRecipesOptions, Recipe } from '#/schema/recipes'
+import { authMiddleware } from '#/middleware/auth'
+import {
+  saveRecipeSchema,
+  type GetRecipesOptions,
+  type Recipe,
+} from '#/schema/recipes'
 import { createServerFn } from '@tanstack/react-start'
 
 type RecipesResponse = {
@@ -65,12 +70,33 @@ export const getRecipesFN = createServerFn()
     if (error) {
       throw new Error(error.message)
     }
-    console.log('recipes', recipes)
     return {
       recipes,
       count: count ?? 0,
       page: data.page ?? 1,
       limit: data.limit ?? 10,
       totalPages: Math.ceil((count || 0) / (data.limit ?? 10)),
+    }
+  })
+
+export const saveRecipeFn = createServerFn({ method: 'POST' })
+  .middleware([authMiddleware])
+  .validator(saveRecipeSchema)
+  .handler(async ({ data }) => {
+    const supabase = getSupabaseServerClient()
+    if (data.isLiked) {
+      const { error } = await supabase
+        .from('likes')
+        .delete()
+        .eq('recipe_id', data.recipeId)
+        .eq('user_id', data.userId)
+
+      if (error) throw new Error(error.message)
+    } else {
+      const { error } = await supabase.from('likes').insert({
+        recipe_id: data.recipeId,
+        user_id: data.userId,
+      })
+      if (error) throw new Error(error.message)
     }
   })

@@ -3,28 +3,25 @@ import RecipesFilter from '#/components/Recipes/RecipesFilter'
 import RecipesGrid from '#/components/Recipes/RecipesGrid'
 import RecipesGridSkeleton from '#/components/Recipes/RecipesGridSkeleton'
 import { RecipesPagination } from '#/components/Recipes/RecipiesPagination'
-import { getRecipesQuery } from '#/queries/recipes'
-import { getUserLikesQuery } from '#/queries/user'
-import { RecipesSearchParams } from '#/schema/recipes'
+import SavedRecipesGrid from '#/components/Recipes/SavedRecipesGrid'
+import { getLikedRecipeQuery } from '#/queries/user'
+import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import { Suspense } from 'react'
 
-export const Route = createFileRoute('/recipes/')({
+export const Route = createFileRoute('/_authenticated/saved')({
   component: RouteComponent,
-  validateSearch: RecipesSearchParams,
-  loader: async ({ context, location }) => {
-    await Promise.all([
-      context.queryClient.ensureQueryData(getRecipesQuery(location.search)),
-      context.user
-        ? context.queryClient.ensureQueryData(
-            getUserLikesQuery(context.user.id),
-          )
-        : Promise.resolve(),
-    ])
+  loader: async ({ context }) => {
+    await context.queryClient.ensureQueryData(
+      getLikedRecipeQuery(context.user.id),
+    )
   },
 })
 
 function RouteComponent() {
+  const { user } = Route.useRouteContext()
+  const { data: recipes = [] } = useQuery(getLikedRecipeQuery(user.id))
+
   return (
     <main className="pageLayout space-y-4">
       <header className="mb-10">
@@ -34,12 +31,12 @@ function RouteComponent() {
         </p>
       </header>
       <div className="flex items-center justify-between gap-2 md:flex-col-reverse md:items-stretch md:justify-center md:gap-8">
-        <RecipesCount />
-        <RecipesFilter />
+        {/* <RecipesCount /> */}
+        {/* <RecipesFilter /> */}
       </div>
       <Suspense fallback={<RecipesGridSkeleton count={12} />}>
-        <RecipesGrid />
-        <RecipesPagination />
+        <SavedRecipesGrid recipes={recipes} />
+        {/* <RecipesPagination /> */}
       </Suspense>
     </main>
   )

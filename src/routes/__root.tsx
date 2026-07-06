@@ -16,6 +16,7 @@ import type { QueryClient } from '@tanstack/react-query'
 import { TooltipProvider } from '#/components/ui/tooltip'
 import { currentUserQuery } from '#/queries/user'
 import { getCategoriesQuery } from '#/queries/category'
+import { Toaster } from '#/components/ui/sonner'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -69,6 +70,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <TooltipProvider>
             <TopMenu />
             {children}
+            <Toaster />
             <BottomMenu />
 
             <TanStackDevtools

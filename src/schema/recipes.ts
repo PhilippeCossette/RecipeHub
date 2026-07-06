@@ -41,3 +41,9 @@ export type GetRecipesOptions = {
   page?: number
   limit?: number
 }
+
+export const saveRecipeSchema = z.object({
+  userId: z.string(),
+  recipeId: z.string(),
+  isLiked: z.boolean(),
+})
