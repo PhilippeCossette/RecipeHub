@@ -23,23 +23,51 @@ export default function SaveButton({
 
   const { mutate } = useMutation({
     ...SaveRecipeMutation(),
-    onMutate: async () => {
-      const queryKey = ['likes', userId]
+    onMutate: async (variables) => {
+      const queryKey = ['likes', variables.userId]
       await queryClient.cancelQueries({ queryKey })
-      const previous = queryClient.getQueryData<string[]>(queryKey)
+      const previous = queryClient.getQueryData<string[]>(queryKey) ?? []
 
       queryClient.setQueryData<string[]>(
         queryKey,
         (old = []) =>
-          isLiked
-            ? old.filter((id) => id !== recipeId) // was liked -> remove
-            : [...old, recipeId], // wasn't liked -> add
+          variables.isLiked
+            ? old.filter((id) => id !== variables.recipeId) // was liked -> remove
+            : [...old, variables.recipeId], // wasn't liked -> add
       )
 
       return { previous }
     },
     onError: (_err, _vars, context) => {
-      queryClient.setQueryData(['likes', userId], context?.previous)
+      queryClient.setQueryData(['likes', _vars.userId], context?.previous ?? [])
+      toast.error('An error occurred while saving the recipe.')
+    },
+    onSuccess: (_data, variables) => {
+      toast(
+        variables.isLiked
+          ? 'Recipe unsaved successfully.'
+          : 'Recipe saved successfully.',
+        {
+          action: {
+            label: 'Undo',
+            onClick: () => {
+              mutate({
+                ...variables,
+                isLiked: !variables.isLiked,
+              })
+            },
+          },
+        },
+      )
+    },
+    onSettled: (_data, _error, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ['likes', variables.userId],
+      })
+
+      queryClient.invalidateQueries({
+        queryKey: ['likedRecipes', variables.userId],
+      })
     },
   })
 

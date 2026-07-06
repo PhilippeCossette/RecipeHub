@@ -20,6 +20,10 @@ export const getUserLikesFn = createServerFn({ method: 'GET' })
     return likedRecipes.map((row) => row.recipe_id)
   })
 
+type LikedRecipe = {
+  recipes: Recipe
+}
+
 export const getLikedRecipesFn = createServerFn()
   .validator(UserLikesSchema)
   .handler(async ({ data }): Promise<Recipe[]> => {
@@ -28,10 +32,13 @@ export const getLikedRecipesFn = createServerFn()
       .from('likes')
       .select('recipes(*)')
       .eq('user_id', data.userId)
+      .overrideTypes<LikedRecipe[]>()
 
     if (error) throw new Error(error.message)
 
     console.log(likedRecipes)
 
-    return likedRecipes.map((row) => row.recipes)
+    return likedRecipes
+      .map((row) => row.recipes)
+      .filter((recipe): recipe is Recipe => recipe !== null)
   })
