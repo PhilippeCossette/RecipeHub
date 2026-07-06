@@ -25,13 +25,13 @@ function RouteComponent() {
   return (
     <main className="pageLayout space-y-4">
       <header className="mb-10">
-        <h1 className="text-4xl md:text-6xl font-bold">Find Your Next Meal</h1>
+        <h1 className="text-4xl md:text-6xl font-bold">Saved Recipes</h1>
         <p className="text-sm md:text-md">
-          Search, filter, and browse recipes made for every day cooking.
+          Your collection of recipes to cook whenever inspiration strikes.
         </p>
       </header>
       <div className="flex items-center justify-between gap-2 md:flex-col-reverse md:items-stretch md:justify-center md:gap-8">
-        {/* <RecipesCount /> */}
+        <RecipesCount countType="saved" />
         {/* <RecipesFilter /> */}
       </div>
       <Suspense fallback={<RecipesGridSkeleton count={12} />}>
