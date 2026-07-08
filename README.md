@@ -1,213 +1,205 @@
-Welcome to your new TanStack Start app! 
+<h1 align="center">🍳 RecipeHub</h1>
 
-# Getting Started
+<p align="center">
+A modern full-stack recipe platform built with the React ecosystem.
+</p>/.
 
-To run this application:
+<p align="center">
+
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![TanStack Start](https://img.shields.io/badge/TanStack-Start-FF6B35)
+![TanStack Query](https://img.shields.io/badge/TanStack-Query-FF4154)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
+![shadcn/ui](https://img.shields.io/badge/shadcn-ui-black)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?logo=supabase&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
+![License](https://img.shields.io/github/license/PhilippeCossette/recipehub)
+![Issues](https://img.shields.io/github/issues/PhilippeCossette/recipehub)
+![Stars](https://img.shields.io/github/stars/PhilippeCossette/recipehub)
+
+</p>
+
+---
+
+## 📖 About
+
+RecipeHub is a modern full-stack recipe platform where users can discover and save recipes.
+
+The project focuses on building a scalable application using the modern React ecosystem, emphasizing reusable components, server-side data fetching, authentication, and a clean developer experience.
+
+> **Note**
+>
+> The current version prioritizes functionality and architecture. A complete UI redesign with custom components and branding is planned for a future release.
+
+---
+
+## ✨ Features
+
+### Authentication
+
+- User authentication
+- Protected routes
+- User profiles
+
+### Recipes
+
+- Browse recipes
+- Search recipes
+- Category filtering
+- Sorting options
+- Pagination
+- Recipe details
+
+### User Features
+
+- Save favorite recipes
+- View liked recipes
+- User dashboard
+
+### Developer Experience
+
+- Type-safe API
+- Server Functions
+- Cached data fetching
+- Form validation
+- Responsive layouts
+
+---
+
+## 🚀 Tech Stack
+
+### Frontend
+
+- React 19
+- TypeScript
+- TanStack Start
+- TanStack Router
+- TanStack Query
+- Tailwind CSS
+- shadcn/ui
+- Zod
+
+### Backend
+
+- Supabase
+- PostgreSQL
+- Server Functions
+- Authentication
+- Row Level Security (RLS)
+
+### Tooling
+
+- Vite
+- Git
+- GitHub
+- ESLint
+- Prettier
+
+---
+
+## 📸 Preview
+
+> Screenshots coming soon.
+
+---
+
+## 🛣 Roadmap
+
+- [x] Authentication
+- [x] Recipe browsing
+- [x] Search
+- [x] Categories
+- [x] Sorting
+- [x] Pagination
+- [x] Save recipes
+- [ ] Create recipes
+- [ ] Edit recipes
+- [ ] Upload recipe images
+- [ ] User profile page
+- [ ] Complete UI redesign
+- [ ] Dark mode
+- [ ] Recipe ratings
+- [ ] Comments
+- [ ] Shopping list
+- [ ] Meal planner
+
+---
+
+## ⚙️ Getting Started
+
+Clone the repository
+
+```bash
+git clone https://github.com/PhilippeCossette/recipehub.git
+```
+
+Install dependencies
 
 ```bash
 npm install
+```
+
+Start the development server
+
+```bash
 npm run dev
 ```
 
-# Building For Production
+Create your environment variables
 
-To build this application for production:
+```env
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+```
+
+Build for production
 
 ```bash
 npm run build
 ```
 
-## Testing
+---
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+## 📂 Project Structure
 
-```bash
-npm run test
+```
+src/
+├── components/
+├── hooks/
+├── lib/
+├── queries/
+├── routes/
+├── schema/
+└── utils/
 ```
 
-## Styling
+---
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+## 🎯 Goals
 
-### Removing Tailwind CSS
+This project was created to strengthen my knowledge of modern full-stack React development, including:
 
-If you prefer not to use Tailwind CSS:
+- Component Architecture
+- Server State Management
+- TanStack Start
+- Authentication
+- Database Design
+- API Integration
+- Performance
+- Scalable project organization
 
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `npm install @tailwindcss/vite tailwindcss -D`
+---
 
-## Linting & Formatting
+## 👨‍💻 Author
 
-
-This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
-
-```bash
-npm run lint
-npm run format
-npm run check
-```
+**Philippe Cossette**
 
 
-## Shadcn
+GitHub  
+https://github.com/PhilippeCossette
 
-Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
+LinkedIn  
+https://www.linkedin.com/in/philippeco7/
 
-```bash
-pnpm dlx shadcn@latest add button
-```
-
-
-
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+---
