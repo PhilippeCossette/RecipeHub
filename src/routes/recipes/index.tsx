@@ -26,7 +26,7 @@ export const Route = createFileRoute('/recipes/')({
 
 function RouteComponent() {
   return (
-    <main className="pageLayout space-y-4">
+    <main className="pageLayout flex-1 space-y-4">
       <header className="mb-10">
         <h1 className="text-4xl md:text-6xl font-bold">Find Your Next Meal</h1>
         <p className="text-sm md:text-md">
@@ -34,12 +34,12 @@ function RouteComponent() {
         </p>
       </header>
       <div className="flex items-center justify-between gap-2 md:flex-col-reverse md:items-stretch md:justify-center md:gap-8">
-        <RecipesCount />
-        <RecipesFilter />
+        <RecipesCount countType="recipes" />
+        <RecipesFilter from="recipes" />
       </div>
       <Suspense fallback={<RecipesGridSkeleton count={12} />}>
         <RecipesGrid />
-        <RecipesPagination />
+        <RecipesPagination type="recipes" />
       </Suspense>
     </main>
   )

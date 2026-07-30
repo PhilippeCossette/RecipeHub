@@ -14,6 +14,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from '@/components/ui/input-group'
+import { Textarea } from './textarea'
 
 export function Input({
   className,
@@ -76,5 +77,46 @@ export function InputErrorToolTip({
         </InputGroupAddon>
       )}
     </InputGroup>
+  )
+}
+
+type TextareaErrorToolTipProps = ComponentProps<typeof Textarea> & {
+  error?: string
+  isInvalid?: boolean
+}
+
+export function TextareaErrorToolTip({
+  className,
+  error,
+  isInvalid,
+  ...props
+}: TextareaErrorToolTipProps) {
+  return (
+    <div className={cn('relative w-full', className)}>
+      <Textarea
+        aria-invalid={isInvalid}
+        className={cn(isInvalid && 'pr-10')}
+        {...props}
+      />
+      {isInvalid && (
+        <div className="absolute right-1 top-1">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="w-9 h-9 p-0 hover:bg-transparent hover:scale-110 transition-all duration-200 animate-pulse text-red-400 hover:text-red-700"
+              >
+                <CircleAlert className="h-4 w-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{error ?? 'No error message available'}</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
+      )}
+    </div>
   )
 }

@@ -19,4 +19,5 @@ export type CurrentUser = {
   email: string | null
   username: string | null
   role: null | 'admin'
+  created_at: string
 } | null

@@ -14,12 +14,19 @@ import type { Recipe } from '#/schema/recipes'
 import RecipeCard, { RecipeCardSeeMore } from './Recipes/RecipeCard'
 
 export interface GalleryProps {
-  items?: Recipe[]
+  items: Recipe[]
+  title: string
   className?: string
   isLoading?: boolean
+  type?: 'saved' | 'default'
 }
 
-const GalleryWithFilter = ({ items, className }: GalleryProps) => {
+const Gallery = ({
+  items,
+  title,
+  className,
+  type = 'default',
+}: GalleryProps) => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>()
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
@@ -43,8 +50,8 @@ const GalleryWithFilter = ({ items, className }: GalleryProps) => {
 
   return (
     <section className={cn('mt-10 md:mt-0', className)}>
-      <div className=" shrink-0 w-full gap-2 flex justify-between mb-10">
-        <h2 className="text-2xl font-bold">Latest Recipes</h2>
+      <div className=" shrink-0 w-full section-paddingX gap-2 flex justify-between mb-10">
+        <h2 className="text-2xl font-bold">{title}</h2>
         <div className="hidden shrink-0  gap-2 md:flex justify-end ">
           <Button
             size="icon"
@@ -91,7 +98,7 @@ const GalleryWithFilter = ({ items, className }: GalleryProps) => {
               </CarouselItem>
             ))}
             <CarouselItem>
-              <RecipeCardSeeMore to="/recipes" />
+              <RecipeCardSeeMore type={type} />
             </CarouselItem>
           </CarouselContent>
         </Carousel>
@@ -112,4 +119,4 @@ const GalleryWithFilter = ({ items, className }: GalleryProps) => {
   )
 }
 
-export { GalleryWithFilter }
+export { Gallery }

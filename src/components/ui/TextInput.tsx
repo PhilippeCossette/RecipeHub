@@ -5,14 +5,17 @@ import {
   FieldLabel,
 } from '@/components/ui/field'
 
-import { Input, InputErrorToolTip } from './input'
+import { TextareaErrorToolTip, InputErrorToolTip } from './input'
+import type { ZodObject, ZodTypeAny } from 'zod'
+import type { StandardSchemaV1 } from '@tanstack/react-form'
 
 type Props = {
   form: any
   name: string
-  label: string
+  label?: string
   type: string
   placeholder: string
+  validator?: StandardSchemaV1 | ZodTypeAny
 }
 
 export default function TextInput({
@@ -21,29 +24,54 @@ export default function TextInput({
   label,
   type,
   placeholder,
+  validator,
 }: Props) {
   return (
     <FieldGroup>
       <form.Field
         name={name}
+        validators={{
+          onBlur: validator,
+        }}
         children={(field: any) => {
           const isInvalid =
             field.state.meta.isTouched && !field.state.meta.isValid
           return (
             <Field>
-              <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+              {label && <FieldLabel htmlFor={field.name}>{label}</FieldLabel>}
 
-              <InputErrorToolTip
-                type={type}
-                id={field.name}
-                className="bg-background"
-                placeholder={placeholder}
-                value={field.state.value}
-                onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
-                isInvalid={isInvalid}
-                error={field.state.meta.errors[0]?.message}
-              />
+              {type === 'textarea' ? (
+                <TextareaErrorToolTip
+                  id={field.name}
+                  className="bg-background"
+                  placeholder={placeholder}
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  isInvalid={isInvalid}
+                  error={field.state.meta.errors[0]?.message}
+                />
+              ) : (
+                <InputErrorToolTip
+                  type={type}
+                  id={field.name}
+                  className="bg-background"
+                  placeholder={placeholder}
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  onChange={(e) => {
+                    if (type === 'number') {
+                      field.handleChange(
+                        e.target.value === '' ? null : Number(e.target.value),
+                      )
+                    } else {
+                      field.handleChange(e.target.value)
+                    }
+                  }}
+                  isInvalid={isInvalid}
+                  error={field.state.meta.errors[0]?.message}
+                />
+              )}
             </Field>
           )
         }}

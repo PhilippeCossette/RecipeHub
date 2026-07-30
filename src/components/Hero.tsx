@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 
 export default function Hero() {
   return (
-    <section className="relative flex flex-col items-start md:items-center md:text-center mb-20 mt-10">
+    <section className="section-paddingX relative flex flex-col items-start md:items-center md:text-center mb-20">
       <h1 className="text-6xl md:text-8xl mb-8 font-bold max-w-[15ch]">
         What are you{' '}
         <Highlighter
@@ -28,26 +28,6 @@ export default function Hero() {
     </section>
   )
 }
-
-// <div className="bg-red-900/10 grid gap-6 grid-cols-2 w-full h-full">
-//         <img
-//           className="max-w-[50vw] object-cover col-end-0 row-start-1 row-end-3"
-//           src="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_center,w_730,h_913/k%2FPhoto%2FRecipes%2F2023-01-Caramelized-Tomato-Paste-Pasta%2F06-CARAMELIZED-TOMATO-PASTE-PASTA-039_3981ac_cropped"
-//           alt=""
-//         />
-//         <img
-//           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTlapTpFtv3aCdZS2UPmd1JZXa7j2NAgDkGUkwBdZ99-ozOkCR1KmDOJU&s=10"
-//           alt=""
-//         />
-//         <img
-//           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmIMEKUGeEF-cvVuHrEZe_j86oYTSy8FWrVhr7mMdQEQ&s=10"
-//           alt=""
-//         />
-//         <img
-//           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTBVIFs5hNMEx0rv30gRS5myDnRD5biqVmUQVozYLbDRHDApMDKq_XmsI&s=10"
-//           alt=""
-//         />
-//       </div>
 
 function HeroSearchBar() {
   const [searchQuery, setSearchQuery] = useState('')

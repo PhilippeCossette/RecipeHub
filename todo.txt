@@ -1,0 +1,60 @@
+Fix FrontEnd
+
+fix layout of log in and logout
+Modify Email, Password username
+Verify Email Page and Verification
+
+add cuisine and category with drawer
+add cuisine type
+
+category Page
+share recipes / print
+
+
+
+
+SLide of image as hero
+add illustration
+refactor ingredient row to a 
+{
+type Ingredient = {
+  ingredientName: string
+  ingredientQuantity: number   // 1, 0.5, 2.25 — always a number, never "1 1/2"
+  ingredientMeasure: string    // 'tbsp', 'cup', 'g', '' for whole items like "3 eggs"
+  customMeasure: string // if ingredientMeasure is "" displat the custom measure.
+}}
+
+//// Admin
+Dashboard
+creates new category
+
+//// Medium Priority
+Comments
+Ratings
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DONE:
+Cancel on Modify Page /////////////// DONE
+Fix When noimage /////////////// DONE
+Create 404 Page ////////////////// DONE
+Check no data Page /////////////// DONE
+add count likes//////// DONE
+add similar recipes /////////// DONE
+add action button to recipe Page ///////// DONE
+check all loading state && check Skeleton ///// DONE
+make ssettings and profile (theme color, change username, change email, sees how many liked recipes, ) /////////

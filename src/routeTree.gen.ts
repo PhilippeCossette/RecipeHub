@@ -14,9 +14,11 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RecipesIndexRouteImport } from './routes/recipes/index'
+import { Route as RecipesRecipeSlugRouteImport } from './routes/recipes/$recipeSlug'
 import { Route as AuthenticatedSavedRouteImport } from './routes/_authenticated/saved'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
-import { Route as AdminProjectRouteImport } from './routes/_admin/project'
+import { Route as AdminCreateRouteImport } from './routes/_admin/create'
+import { Route as AdminUpdateSlugRouteImport } from './routes/_admin/update/$slug'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -41,6 +43,11 @@ const RecipesIndexRoute = RecipesIndexRouteImport.update({
   path: '/recipes/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecipesRecipeSlugRoute = RecipesRecipeSlugRouteImport.update({
+  id: '/recipes/$recipeSlug',
+  path: '/recipes/$recipeSlug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedSavedRoute = AuthenticatedSavedRouteImport.update({
   id: '/saved',
   path: '/saved',
@@ -51,27 +58,36 @@ const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AdminProjectRoute = AdminProjectRouteImport.update({
-  id: '/project',
-  path: '/project',
+const AdminCreateRoute = AdminCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminUpdateSlugRoute = AdminUpdateSlugRouteImport.update({
+  id: '/update/$slug',
+  path: '/update/$slug',
   getParentRoute: () => AdminRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/project': typeof AdminProjectRoute
+  '/create': typeof AdminCreateRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/saved': typeof AuthenticatedSavedRoute
+  '/recipes/$recipeSlug': typeof RecipesRecipeSlugRoute
   '/recipes/': typeof RecipesIndexRoute
+  '/update/$slug': typeof AdminUpdateSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/project': typeof AdminProjectRoute
+  '/create': typeof AdminCreateRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/saved': typeof AuthenticatedSavedRoute
+  '/recipes/$recipeSlug': typeof RecipesRecipeSlugRoute
   '/recipes': typeof RecipesIndexRoute
+  '/update/$slug': typeof AdminUpdateSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,26 +95,46 @@ export interface FileRoutesById {
   '/_admin': typeof AdminRouteWithChildren
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/auth': typeof AuthRoute
-  '/_admin/project': typeof AdminProjectRoute
+  '/_admin/create': typeof AdminCreateRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/saved': typeof AuthenticatedSavedRoute
+  '/recipes/$recipeSlug': typeof RecipesRecipeSlugRoute
   '/recipes/': typeof RecipesIndexRoute
+  '/_admin/update/$slug': typeof AdminUpdateSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/project' | '/profile' | '/saved' | '/recipes/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/create'
+    | '/profile'
+    | '/saved'
+    | '/recipes/$recipeSlug'
+    | '/recipes/'
+    | '/update/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/project' | '/profile' | '/saved' | '/recipes'
+  to:
+    | '/'
+    | '/auth'
+    | '/create'
+    | '/profile'
+    | '/saved'
+    | '/recipes/$recipeSlug'
+    | '/recipes'
+    | '/update/$slug'
   id:
     | '__root__'
     | '/'
     | '/_admin'
     | '/_authenticated'
     | '/auth'
-    | '/_admin/project'
+    | '/_admin/create'
     | '/_authenticated/profile'
     | '/_authenticated/saved'
+    | '/recipes/$recipeSlug'
     | '/recipes/'
+    | '/_admin/update/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -106,6 +142,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AuthRoute: typeof AuthRoute
+  RecipesRecipeSlugRoute: typeof RecipesRecipeSlugRoute
   RecipesIndexRoute: typeof RecipesIndexRoute
 }
 
@@ -146,6 +183,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RecipesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recipes/$recipeSlug': {
+      id: '/recipes/$recipeSlug'
+      path: '/recipes/$recipeSlug'
+      fullPath: '/recipes/$recipeSlug'
+      preLoaderRoute: typeof RecipesRecipeSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/saved': {
       id: '/_authenticated/saved'
       path: '/saved'
@@ -160,22 +204,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProfileRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_admin/project': {
-      id: '/_admin/project'
-      path: '/project'
-      fullPath: '/project'
-      preLoaderRoute: typeof AdminProjectRouteImport
+    '/_admin/create': {
+      id: '/_admin/create'
+      path: '/create'
+      fullPath: '/create'
+      preLoaderRoute: typeof AdminCreateRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/_admin/update/$slug': {
+      id: '/_admin/update/$slug'
+      path: '/update/$slug'
+      fullPath: '/update/$slug'
+      preLoaderRoute: typeof AdminUpdateSlugRouteImport
       parentRoute: typeof AdminRoute
     }
   }
 }
 
 interface AdminRouteChildren {
-  AdminProjectRoute: typeof AdminProjectRoute
+  AdminCreateRoute: typeof AdminCreateRoute
+  AdminUpdateSlugRoute: typeof AdminUpdateSlugRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
-  AdminProjectRoute: AdminProjectRoute,
+  AdminCreateRoute: AdminCreateRoute,
+  AdminUpdateSlugRoute: AdminUpdateSlugRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
@@ -199,6 +252,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthRoute: AuthRoute,
+  RecipesRecipeSlugRoute: RecipesRecipeSlugRoute,
   RecipesIndexRoute: RecipesIndexRoute,
 }
 export const routeTree = rootRouteImport

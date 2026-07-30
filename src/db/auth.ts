@@ -15,7 +15,7 @@ export const getUserFN = createServerFn().handler(
 
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select('username, role')
+      .select('username, role, created_at')
       .eq('id', user.id)
       .maybeSingle()
 
@@ -29,6 +29,7 @@ export const getUserFN = createServerFn().handler(
       email: user.email ?? null,
       username: profile?.username ?? null,
       role: profile?.role ?? null,
+      created_at: profile?.created_at ?? null,
     }
   },
 )

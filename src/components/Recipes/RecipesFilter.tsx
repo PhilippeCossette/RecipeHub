@@ -1,6 +1,5 @@
 import { SearchBar } from '../ui/search-bar'
 import { useDebouncedCallback } from 'use-debounce'
-import { Route } from '#/routes/recipes'
 import CategoryFilterIcon from '../Category/CategoryFilterIcon'
 import { SortFilter } from './SortFilter'
 import type { GetRecipesOptions } from '#/schema/recipes'
@@ -15,10 +14,24 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '../ui/sheet'
+import { useNavigate, useSearch } from '@tanstack/react-router'
 
-export default function RecipesFilter() {
-  const search = Route.useSearch()
-  const navigate = Route.useNavigate()
+type RecipesFilterProps = {
+  from: 'recipes' | 'saved'
+}
+
+const ROUTE_MAP_SEARCH = {
+  recipes: '/recipes/',
+  saved: '/_authenticated/saved',
+} as const satisfies Record<RecipesFilterProps['from'], string>
+const ROUTE_MAP_NAVIGATE = {
+  recipes: '/recipes/',
+  saved: '/saved',
+} as const satisfies Record<RecipesFilterProps['from'], string>
+
+export default function RecipesFilter({ from }: RecipesFilterProps) {
+  const search = useSearch({ from: ROUTE_MAP_SEARCH[from] })
+  const navigate = useNavigate({ from: ROUTE_MAP_NAVIGATE[from] })
 
   const updateSearch = useDebouncedCallback((value: string) => {
     navigate({

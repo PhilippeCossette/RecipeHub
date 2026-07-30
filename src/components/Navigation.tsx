@@ -120,13 +120,22 @@ const Navigation = ({
       title: 'Recipes',
       url: '/recipes',
     },
+    {
+      title: 'Saved',
+      url: '/saved',
+    },
   ],
 
   className,
 }: NavigationProps) => {
   return (
-    <section className={cn('p-4', className)}>
-      <div className="  ">
+    <section
+      className={cn(
+        'p-4 z-50 w-full fixed left-0 bg-neutral-100 border-b border-b-neutral-200 dark:bg-neutral-900 dark:border-b-neutral-800 rounded-b-2xl',
+        className,
+      )}
+    >
+      <div className="mx-auto max-w-350 ">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between md:flex grow">
           <div className="flex items-center gap-6">
@@ -164,8 +173,10 @@ const Navigation = ({
 const renderMenuItem = (item: MenuItem) => {
   if (item.items) {
     return (
-      <NavigationMenuItem key={item.title}>
-        <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
+      <NavigationMenuItem className="h-10" key={item.title}>
+        <NavigationMenuTrigger className="h-full bg-transparent">
+          {item.title}
+        </NavigationMenuTrigger>
         <NavigationMenuContent className="bg-popover text-popover-foreground">
           {item.items.map((subItem) => (
             <NavigationMenuLink asChild key={subItem.title} className="w-80">
@@ -180,7 +191,7 @@ const renderMenuItem = (item: MenuItem) => {
   return (
     <Link to={item.url} key={item.title} className="w-max">
       <NavigationMenuItem key={item.title}>
-        <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground">
+        <NavigationMenuLink className="group  inline-flex h-10 w-max items-center justify-center rounded-md  px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground">
           {item.title}
         </NavigationMenuLink>
       </NavigationMenuItem>
@@ -250,14 +261,17 @@ export function UserMenu() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem>
-            <IconUser stroke={2} />
-            Profile
-          </DropdownMenuItem>
-          <DropdownMenuItem>
+          <Link to={'/profile'}>
+            <DropdownMenuItem>
+              <IconUser stroke={2} />
+              Profile
+            </DropdownMenuItem>
+          </Link>
+          {/* No Need For now */}
+          {/* <DropdownMenuItem>
             <IconSettings stroke={2} />
             Settings
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleLogOut} variant="destructive">
             <IconLogout stroke={2} />

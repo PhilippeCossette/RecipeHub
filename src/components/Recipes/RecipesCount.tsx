@@ -1,5 +1,6 @@
 import { Route as RecipesRoute } from '#/routes/recipes'
 import { Route as RootRoute } from '#/routes/__root'
+import { Route as SavedRoute } from '#/routes/_authenticated/saved'
 import { getRecipesQuery } from '#/queries/recipes'
 import { useQuery } from '@tanstack/react-query'
 import { Spinner } from '../ui/spinner'
@@ -29,7 +30,7 @@ function AllRecipesCount() {
   }
 
   if (data?.count === 0) {
-    return <p className="text-sm text-muted-foreground">No recipes found</p>
+    return
   }
 
   if (data?.count === 1) {
@@ -46,14 +47,20 @@ const SavedRecipesCount = () => {
   if (!user) {
     return null
   }
-  const { data, isLoading } = useQuery(getLikedRecipeQuery(user.id))
-  const count = data?.length ?? 0
+  const search = SavedRoute.useSearch()
+
+  const { data, isLoading } = useQuery(getLikedRecipeQuery(user.id, search))
 
   if (isLoading) {
     return <Spinner />
   }
 
-  if (count === 0) {
+  if (
+    data?.count === 0 &&
+    search.q === undefined &&
+    search.category === undefined &&
+    search.sort === undefined
+  ) {
     return (
       <p className="text-sm text-muted-foreground">
         You haven't saved any recipes yet
@@ -61,7 +68,15 @@ const SavedRecipesCount = () => {
     )
   }
 
-  if (count === 1) {
+  if (data?.count === 0) {
+    return (
+      <p className="text-sm text-muted-foreground">
+        No saved recipes match your search
+      </p>
+    )
+  }
+
+  if (data?.count === 1) {
     return (
       <p className="text-sm text-muted-foreground">You have 1 saved recipe</p>
     )
@@ -69,7 +84,7 @@ const SavedRecipesCount = () => {
 
   return (
     <p className="text-sm text-muted-foreground">
-      You have {count} saved recipes
+      You have {data?.count} saved recipes
     </p>
   )
 }

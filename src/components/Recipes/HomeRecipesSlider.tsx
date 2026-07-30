@@ -1,17 +1,14 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { getRecipesQuery } from '#/queries/recipes'
-import { GalleryWithFilter } from '#/components/GalleryWithFilter'
+import { Gallery } from '#/components/Gallery'
 
 export default function HomeRecipesSlider() {
-  const { data, isLoading } = useSuspenseQuery(
+  const { data } = useSuspenseQuery(
     getRecipesQuery({
       limit: 10,
+      sort: 'newest',
     }),
   )
 
-  return (
-    <>
-      <GalleryWithFilter items={data.recipes} isLoading={isLoading} />
-    </>
-  )
+  return <Gallery title="Latest Recipes" items={data.recipes} />
 }

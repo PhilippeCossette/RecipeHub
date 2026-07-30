@@ -22,7 +22,7 @@ export const RecipeGallerySkeleton = ({
   return (
     <section className={cn('', className)}>
       <div className="hidden shrink-0 w-full gap-2 md:flex justify-between mb-10">
-        <Skeleton className="h-6 w-32 rounded-full" />
+        <Skeleton className="h-8 w-48 ml-3 rounded-full" />
         <div className="hidden shrink-0  gap-2 md:flex justify-end ">
           <Button size="icon" variant="ghost" disabled>
             <ArrowLeft className="size-5" />

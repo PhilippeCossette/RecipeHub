@@ -26,6 +26,41 @@ export type Recipe = {
   updated_at: string
 }
 
+export const recipeFormSchema = z.object({
+  title: z.string().min(1, 'Title is required').max(200),
+  description: z.string().min(2, 'Description is required').max(1000),
+  ingredients: z.array(z.string().min(1)).min(1, 'Add at least one ingredient'),
+  steps: z.array(z.string().min(1)).min(1, 'Add at least one step'),
+  category_id: z.string().min(1, 'Category is required'),
+  prep_time_minutes: z.number().positive().nullable(),
+  cook_time_minutes: z.number().positive().nullable(),
+  servings: z.number().int().positive().nullable(),
+  cover_image_url: z.url().nullable(),
+  coverImageFile: z.instanceof(File).nullable(),
+})
+
+export const recipeFormSchemaWithId = recipeFormSchema.extend({
+  id: z.uuid().optional(),
+})
+
+export const updateRecipeValidator = recipeFormSchemaWithId.omit({
+  coverImageFile: true,
+})
+
+export type recipeFormSchemaType = z.infer<typeof recipeFormSchemaWithId>
+
+export const recipeSubmitSchema = recipeFormSchema.omit({
+  coverImageFile: true,
+})
+
+export type RecipesResponse = {
+  recipes: Recipe[]
+  count: number
+  page: number
+  limit: number
+  totalPages: number
+}
+
 export const RecipesSearchParams = z.object({
   q: z.string().optional(),
   category: z.string().optional(),
@@ -47,3 +82,7 @@ export const saveRecipeSchema = z.object({
   recipeId: z.string(),
   isLiked: z.boolean(),
 })
+
+export type RecipeStats = {
+  like_count: number
+}

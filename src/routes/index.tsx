@@ -1,9 +1,10 @@
 import Hero from '#/components/Hero'
-import FeatureRecipes from '#/components/Recipes/FeatureRecipes'
+import HomeRecipesSlider from '#/components/Recipes/HomeRecipesSlider'
+import { RecipeGallerySkeleton } from '#/components/Recipes/RecipeGallerySkeleton'
 import { getRecipesQuery } from '#/queries/recipes'
 import { authErrorSchema } from '#/schema/search'
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { toast } from 'sonner'
 
 export const Route = createFileRoute('/')({
@@ -29,11 +30,11 @@ function App() {
     }
   }, [authError])
   return (
-    <main className="page-wrap pageLayout">
+    <main className="page-wrap pageLayout no-padding">
       <Hero />
-      <button onClick={() => toast.error('manual test')}>Test</button> // add
-      this temporarily
-      <FeatureRecipes />
+      <Suspense fallback={<RecipeGallerySkeleton />}>
+        <HomeRecipesSlider />
+      </Suspense>
     </main>
   )
 }
