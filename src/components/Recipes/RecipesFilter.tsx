@@ -1,6 +1,6 @@
 import { SearchBar } from '../ui/search-bar'
 import { useDebouncedCallback } from 'use-debounce'
-import CategoryFilterIcon from '../Category/CategoryFilterIcon'
+import CategoryFilter from '../Category/CategoryFilter'
 import { SortFilter } from './SortFilter'
 import type { GetRecipesOptions } from '#/schema/recipes'
 import { Button } from '../ui/button'
@@ -15,6 +15,7 @@ import {
   SheetTrigger,
 } from '../ui/sheet'
 import { useNavigate, useSearch } from '@tanstack/react-router'
+import CuisineFilter from '../Cuisine/CuisineFilter'
 
 type RecipesFilterProps = {
   from: 'recipes' | 'saved'
@@ -48,6 +49,16 @@ export default function RecipesFilter({ from }: RecipesFilterProps) {
       search: (prev) => ({
         ...prev,
         category: categorySlug || undefined,
+        page: 1,
+      }),
+    })
+  }
+
+  const handleCuisineSelect = (cuisineSlug: string) => {
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        cuisine: cuisineSlug || undefined,
         page: 1,
       }),
     })
@@ -94,9 +105,14 @@ export default function RecipesFilter({ from }: RecipesFilterProps) {
                 searchValue={search.q ?? ''}
                 updateSearch={updateSearch}
               />
-              <CategoryFilterIcon
+              <CategoryFilter
                 onCategorySelect={handleCategorySelect}
                 current={search.category}
+              />
+
+              <CuisineFilter
+                onCuisineSelect={handleCuisineSelect}
+                current={search.cuisine}
               />
 
               <SortFilter
@@ -129,9 +145,14 @@ export default function RecipesFilter({ from }: RecipesFilterProps) {
       <div className="hidden gap-4 md:flex">
         <SearchBar searchValue={search.q ?? ''} updateSearch={updateSearch} />
 
-        <CategoryFilterIcon
+        <CategoryFilter
           onCategorySelect={handleCategorySelect}
           current={search.category}
+        />
+
+        <CuisineFilter
+          onCuisineSelect={handleCuisineSelect}
+          current={search.cuisine}
         />
 
         <SortFilter onSortChange={handleSortSelect} current={search.sort} />

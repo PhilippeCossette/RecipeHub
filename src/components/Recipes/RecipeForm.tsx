@@ -25,6 +25,7 @@ interface RecipeFormProps {
 export function RecipeForm({ recipe }: RecipeFormProps) {
   const isEditMode = !!recipe
   const { categories } = useRouteContext({ from: '__root__' })
+  const { cuisines } = useRouteContext({ from: '__root__' })
 
   const goBack = useGoBack()
 
@@ -42,6 +43,7 @@ export function RecipeForm({ recipe }: RecipeFormProps) {
       ingredients: recipe?.ingredients ?? [''],
       steps: recipe?.steps ?? [''],
       category_id: recipe?.category_id ?? '',
+      cuisine_id: recipe?.cuisine_id ?? '',
       prep_time_minutes: recipe?.prep_time_minutes ?? null,
       cook_time_minutes: recipe?.cook_time_minutes ?? null,
       servings: recipe?.servings ?? null,
@@ -50,6 +52,7 @@ export function RecipeForm({ recipe }: RecipeFormProps) {
     },
 
     onSubmit: async ({ value }) => {
+      console.log('Submitting recipe form with value:', value)
       if (isEditMode) {
         updateRecipe.mutate(value)
         return
@@ -237,6 +240,60 @@ export function RecipeForm({ recipe }: RecipeFormProps) {
                         {categories.map((category) => (
                           <SelectItem key={category.id} value={category.id}>
                             {category.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+
+                    {field.state.meta.errors.length > 0 && (
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className="w-9 h-9 p-0 hover:bg-transparent hover:scale-110 transition-all duration-200 animate-pulse text-red-400 hover:text-red-700"
+                          >
+                            <CircleAlert className="h-4 w-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>
+                            {field.state.meta.errors[0]?.message ??
+                              'No error message available'}
+                          </p>
+                        </TooltipContent>
+                      </Tooltip>
+                    )}
+                  </div>
+                </div>
+              )}
+            </form.Field>
+
+            <form.Field
+              name="cuisine_id"
+              validators={{
+                onChange: recipeFormSchema.shape.cuisine_id,
+              }}
+            >
+              {(field) => (
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor={field.name}>Cuisine</label>
+                  <div className="flex gap-1">
+                    <Select
+                      value={field.state.value}
+                      onValueChange={(value) => field.handleChange(value)}
+                    >
+                      <SelectTrigger
+                        id={field.name}
+                        aria-invalid={!!field.state.meta.errors.length}
+                      >
+                        <SelectValue placeholder="Select a Cuisine" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {cuisines.map((cuisine) => (
+                          <SelectItem key={cuisine.id} value={cuisine.id}>
+                            {cuisine.name}
                           </SelectItem>
                         ))}
                       </SelectContent>

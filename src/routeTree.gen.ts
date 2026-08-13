@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AdminRouteImport } from './routes/_admin'
@@ -20,6 +21,11 @@ import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticate
 import { Route as AdminCreateRouteImport } from './routes/_admin/create'
 import { Route as AdminUpdateSlugRouteImport } from './routes/_admin/update/$slug'
 
+const CategoriesRoute = CategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -72,6 +78,7 @@ const AdminUpdateSlugRoute = AdminUpdateSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/categories': typeof CategoriesRoute
   '/create': typeof AdminCreateRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/saved': typeof AuthenticatedSavedRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/categories': typeof CategoriesRoute
   '/create': typeof AdminCreateRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/saved': typeof AuthenticatedSavedRoute
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/_admin': typeof AdminRouteWithChildren
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/auth': typeof AuthRoute
+  '/categories': typeof CategoriesRoute
   '/_admin/create': typeof AdminCreateRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/saved': typeof AuthenticatedSavedRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/categories'
     | '/create'
     | '/profile'
     | '/saved'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/categories'
     | '/create'
     | '/profile'
     | '/saved'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/_admin'
     | '/_authenticated'
     | '/auth'
+    | '/categories'
     | '/_admin/create'
     | '/_authenticated/profile'
     | '/_authenticated/saved'
@@ -142,12 +154,20 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AuthRoute: typeof AuthRoute
+  CategoriesRoute: typeof CategoriesRoute
   RecipesRecipeSlugRoute: typeof RecipesRecipeSlugRoute
   RecipesIndexRoute: typeof RecipesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/categories': {
+      id: '/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -252,6 +272,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthRoute: AuthRoute,
+  CategoriesRoute: CategoriesRoute,
   RecipesRecipeSlugRoute: RecipesRecipeSlugRoute,
   RecipesIndexRoute: RecipesIndexRoute,
 }

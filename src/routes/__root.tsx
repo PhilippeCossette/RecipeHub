@@ -20,6 +20,7 @@ import { Toaster } from '#/components/ui/sonner'
 import NotFound from '#/components/NotFound'
 import { ThemeProvider } from '#/components/Providers/theme-provider'
 import { readThemeCookie } from '#/lib/readThemeCookie'
+import { getCuisinesQuery } from '#/queries/cuisine'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -33,9 +34,13 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     const categories =
       await context.queryClient.ensureQueryData(getCategoriesQuery())
 
+    const cuisines =
+      await context.queryClient.ensureQueryData(getCuisinesQuery())
+
     return {
       user,
       categories,
+      cuisines,
       theme,
     }
   },

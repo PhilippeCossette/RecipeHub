@@ -1,6 +1,4 @@
-Fix FrontEnd
 
-fix layout of log in and logout
 Modify Email, Password username
 Verify Email Page and Verification
 
@@ -12,7 +10,8 @@ share recipes / print
 
 
 
-
+Fix FrontEnd
+fix layout of log in and logout
 SLide of image as hero
 add illustration
 refactor ingredient row to a 
@@ -26,7 +25,7 @@ type Ingredient = {
 
 //// Admin
 Dashboard
-creates new category
+
 
 //// Medium Priority
 Comments

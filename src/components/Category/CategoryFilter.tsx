@@ -20,7 +20,7 @@ type CategoryFilterIconProps = {
   dropDownMobile?: boolean
 }
 
-export default function CategoryFilterIcon({
+export default function CategoryFilter({
   onCategorySelect,
   current,
   dropDownMobile = false,
@@ -70,7 +70,7 @@ export default function CategoryFilterIcon({
               <IconFilter stroke={2} />
               {current
                 ? categories.find((c) => c.slug === current)?.name
-                : 'Filter'}
+                : 'Categories'}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-40" align="start">

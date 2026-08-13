@@ -54,6 +54,9 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
             {recipeStats?.like_count ?? 0}{' '}
             {recipeStats?.like_count <= 1 ? 'like' : 'likes'}
           </Badge>
+          <Badge className=" rounded-full bg-background/90 text-foreground">
+            {recipe.cuisines?.name ?? 'No Cuisine'}
+          </Badge>
         </div>
       </div>
       <CardContent className="flex-1 flex-col space-y-2 px-2 pt-3">

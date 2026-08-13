@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
-
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
 import { Button } from '#/components/ui/button.tsx'
 import type { CarouselApi } from '#/components/ui/carousel.tsx'
 import {
@@ -80,12 +80,10 @@ const Gallery = ({
       <div className="w-full">
         <Carousel
           setApi={setCarouselApi}
+          plugins={[WheelGesturesPlugin()]}
           opts={{
-            breakpoints: {
-              '(max-width: 768px)': {
-                dragFree: true,
-              },
-            },
+            dragFree: true,
+            containScroll: 'trimSnaps',
           }}
         >
           <CarouselContent className="ml-0 2xl:mr-[max(0rem,calc(50vw-768px))] ">
@@ -97,7 +95,7 @@ const Gallery = ({
                 <RecipeCard recipe={item} />
               </CarouselItem>
             ))}
-            <CarouselItem>
+            <CarouselItem className="max-w-[320px] pl-3 lg:max-w-80">
               <RecipeCardSeeMore type={type} />
             </CarouselItem>
           </CarouselContent>
@@ -106,7 +104,7 @@ const Gallery = ({
           {items?.map((_, index) => (
             <button
               key={index}
-              className={`h-2 w-2 rounded-full transition-colors ${
+              className={`cursor-pointer h-2 w-2 rounded-full transition-colors ${
                 currentSlide === index ? 'bg-primary' : 'bg-primary/20'
               }`}
               onClick={() => carouselApi?.scrollTo(index)}

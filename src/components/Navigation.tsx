@@ -2,9 +2,9 @@ import {
   IconMug,
   IconBurger,
   IconToolsKitchen3,
-  IconChefHat,
   IconCookie,
   IconIceCream,
+  IconGlassGin,
 } from '@tabler/icons-react'
 import {
   DropdownMenu,
@@ -16,7 +16,6 @@ import {
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { IconUser } from '@tabler/icons-react'
-import { IconSettings } from '@tabler/icons-react'
 import { IconLogout } from '@tabler/icons-react'
 
 import { Button } from '#/components/ui/button.tsx'
@@ -75,7 +74,7 @@ const Navigation = ({
     { title: 'Home', url: '/' },
     {
       title: 'Categories',
-      url: '#',
+      url: '/categories',
       items: [
         {
           title: 'Breakfast',
@@ -96,12 +95,6 @@ const Navigation = ({
           url: '/recipes?category=dinner',
         },
         {
-          title: 'Meals',
-          description: 'Complete meals for any occasion.',
-          icon: <IconChefHat stroke={2} />,
-          url: '/recipes?category=meals',
-        },
-        {
           title: 'Snacks',
           description: 'Quick bites and tasty treats between meals.',
           icon: <IconCookie stroke={2} />,
@@ -112,6 +105,12 @@ const Navigation = ({
           description: 'Sweet recipes to finish every meal.',
           icon: <IconIceCream stroke={2} />,
           url: '/recipes?category=desserts',
+        },
+        {
+          title: 'Beverages',
+          description: 'Refreshing drinks to complement your meals.',
+          icon: <IconGlassGin stroke={2} />,
+          url: '/recipes?category=beverages',
         },
       ],
     },
@@ -174,9 +173,11 @@ const renderMenuItem = (item: MenuItem) => {
   if (item.items) {
     return (
       <NavigationMenuItem className="h-10" key={item.title}>
-        <NavigationMenuTrigger className="h-full bg-transparent">
-          {item.title}
-        </NavigationMenuTrigger>
+        <Link to={item.url} className="w-max">
+          <NavigationMenuTrigger className="h-full bg-transparent">
+            {item.title}
+          </NavigationMenuTrigger>
+        </Link>
         <NavigationMenuContent className="bg-popover text-popover-foreground">
           {item.items.map((subItem) => (
             <NavigationMenuLink asChild key={subItem.title} className="w-80">

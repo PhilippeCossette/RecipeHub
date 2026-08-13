@@ -1,5 +1,6 @@
 import z from 'zod'
 import type { Category } from './category'
+import type { Cuisine } from './cuisine'
 
 export type Recipe = {
   id: string
@@ -12,6 +13,8 @@ export type Recipe = {
   ingredients: string[]
   steps: string[]
   category_id: string
+  cuisine_id: string
+  cuisines: Cuisine | null
   categories: Category | null
 
   prep_time_minutes: number | null
@@ -32,6 +35,7 @@ export const recipeFormSchema = z.object({
   ingredients: z.array(z.string().min(1)).min(1, 'Add at least one ingredient'),
   steps: z.array(z.string().min(1)).min(1, 'Add at least one step'),
   category_id: z.string().min(1, 'Category is required'),
+  cuisine_id: z.string().min(1, 'Cuisine is required'),
   prep_time_minutes: z.number().positive().nullable(),
   cook_time_minutes: z.number().positive().nullable(),
   servings: z.number().int().positive().nullable(),
@@ -64,6 +68,7 @@ export type RecipesResponse = {
 export const RecipesSearchParams = z.object({
   q: z.string().optional(),
   category: z.string().optional(),
+  cuisine: z.string().optional(),
   sort: z.enum(['newest', 'oldest', 'title-asc', 'title-desc']).optional(),
   page: z.coerce.number().min(1).catch(1),
   limit: z.coerce.number().min(1).max(100).catch(12),
@@ -72,6 +77,7 @@ export const RecipesSearchParams = z.object({
 export type GetRecipesOptions = {
   q?: string
   category?: string
+  cuisine?: string
   sort?: 'newest' | 'oldest' | 'title-asc' | 'title-desc'
   page?: number
   limit?: number

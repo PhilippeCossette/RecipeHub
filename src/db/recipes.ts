@@ -37,7 +37,13 @@ export const getRecipesFN = createServerFn()
             id,
             name,
             slug
+          ),
+          cuisines!inner (
+            id,
+            name,
+            slug
           )
+          
         `,
       { count: 'exact' },
     )
@@ -59,6 +65,10 @@ export const getRecipesFN = createServerFn()
 
     if (data.category) {
       query = query.eq('categories.slug', data.category)
+    }
+
+    if (data.cuisine) {
+      query = query.eq('cuisines.slug', data.cuisine)
     }
 
     if (data.q) {
@@ -93,6 +103,11 @@ export const getRecipeByIdFN = createServerFn()
         `
           *,
           categories!inner (
+            id,
+            name,
+            slug
+          ),
+          cuisines!inner (
             id,
             name,
             slug
