@@ -12,6 +12,8 @@ import { cn } from '#/lib/utils.ts'
 import type { Recipe } from '#/schema/recipes'
 
 import RecipeCard, { RecipeCardSeeMore } from './Recipes/RecipeCard'
+import NotFound from './NotFound'
+import { Card } from './ui/card'
 
 export interface GalleryProps {
   items: Recipe[]
@@ -47,6 +49,19 @@ const Gallery = ({
       carouselApi.off('select', updateSelection)
     }
   }, [carouselApi])
+
+  if (!items || items.length === 0) {
+    return (
+      <Card className="max-w-185 mx-auto p-8">
+        <NotFound
+          type="recipe"
+          message="Looks like you haven't saved any recipes yet. Start exploring and save your favorite recipes to see them here!"
+          title="No Saved Recipes"
+          btnTitle="Explore Recipes"
+        />
+      </Card>
+    )
+  }
 
   return (
     <section className={cn('mt-10 md:mt-0', className)}>

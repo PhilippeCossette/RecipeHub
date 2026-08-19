@@ -1,6 +1,7 @@
 'use client'
 
 import { useForm } from '@tanstack/react-form'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -41,7 +42,7 @@ export const LoginForm = ({ switchAuthMode }: LoginProps) => {
       })
 
       if (!result.success) {
-        console.error('Login failed')
+        toast.error(result.message || 'Login failed')
         return
       }
       await queryClient.invalidateQueries({

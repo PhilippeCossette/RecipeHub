@@ -1,12 +1,9 @@
 
-Modify Email, Password username
-Verify Email Page and Verification
 
 
+animation
 share recipes / print
-
-
-
+confirm password
 Fix FrontEnd
 fix layout of log in and logout
 SLide of image as hero

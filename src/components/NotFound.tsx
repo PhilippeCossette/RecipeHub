@@ -31,8 +31,8 @@ export default function NotFound({
 
   const animationSrc =
     type === 'recipe'
-      ? '/animations/nothing.lottie'
-      : '/animations/Cooking.lottie'
+      ? '/animations/Cooking.lottie'
+      : '/animations/nothing.lottie'
   return (
     <div className="flex-1 flex items-center justify-center flex-col gap-4 text-center">
       <ClientOnly fallback={<Spinner scale="3" />}>
@@ -40,7 +40,7 @@ export default function NotFound({
           src={animationSrc}
           loop
           autoplay
-          className="aspect-auto max-w-full"
+          className="aspect-auto w-full"
         />
       </ClientOnly>
 

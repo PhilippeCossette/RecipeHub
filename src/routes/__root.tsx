@@ -15,12 +15,10 @@ import appCss from '../styles.css?url'
 import type { QueryClient } from '@tanstack/react-query'
 import { TooltipProvider } from '#/components/ui/tooltip'
 import { currentUserQuery } from '#/queries/user'
-import { getCategoriesQuery } from '#/queries/category'
 import { Toaster } from '#/components/ui/sonner'
 import NotFound from '#/components/NotFound'
 import { ThemeProvider } from '#/components/Providers/theme-provider'
 import { readThemeCookie } from '#/lib/readThemeCookie'
-import { getCuisinesQuery } from '#/queries/cuisine'
 
 interface MyRouterContext {
   queryClient: QueryClient

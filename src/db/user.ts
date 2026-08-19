@@ -1,9 +1,10 @@
 import { getSupabaseServerClient } from '#/lib/supabase'
 import type { GetRecipesOptions } from '#/schema/recipes'
+import { updateUsernameSchema } from '#/schema/auth'
 import { createServerFn } from '@tanstack/react-start'
 import z from 'zod'
 import type { RecipesResponse } from './recipes'
-import { adminMiddleware } from '#/middleware/admin'
+import { authMiddleware } from '#/middleware/auth'
 
 const UserLikesSchema = z.object({
   userId: z.string(),
@@ -88,4 +89,21 @@ export const getUserLikedRecipesFn = createServerFn()
       limit: data.limit ?? 10,
       totalPages: Math.ceil((count || 0) / (data.limit ?? 10)),
     }
+  })
+
+export const updateUsernameFN = createServerFn({ method: 'POST' })
+  .middleware([authMiddleware])
+  .validator((data) => updateUsernameSchema.parse(data))
+  .handler(async ({ data, context }) => {
+    const supabase = getSupabaseServerClient()
+    const { error } = await supabase
+      .from('profiles')
+      .update({ username: data.username })
+      .eq('id', context.user.id)
+
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    return { success: true }
   })

@@ -9,6 +9,7 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { notFound } from '@tanstack/react-router'
 import { getLikedRecipeQuery } from '#/queries/user'
 import { ThemeButton } from '../Button/ThemeButton'
+import EditAccountDialog from './EditAccountDialog'
 
 function getInitials(name: string) {
   return name
@@ -54,7 +55,8 @@ export default function ProfileSection() {
             </p>
           </div>
 
-          <div className="flex gap-2 items-center">
+          <div className="flex flex-wrap justify-center gap-2 items-center">
+            <EditAccountDialog user={user} />
             <ThemeButton />
             <LogOut />
           </div>

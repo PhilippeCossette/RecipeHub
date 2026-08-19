@@ -130,7 +130,7 @@ const Navigation = ({
   return (
     <section
       className={cn(
-        'p-4 z-50 w-full fixed left-0 bg-neutral-100 border-b border-b-neutral-200 dark:bg-neutral-900 dark:border-b-neutral-800 rounded-b-2xl',
+        'p-4 z-50 w-full fixed left-0 border-b border-border bg-background rounded-b-2xl',
         className,
       )}
     >

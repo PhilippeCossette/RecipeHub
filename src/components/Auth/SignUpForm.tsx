@@ -1,6 +1,7 @@
 'use client'
 
 import { useForm } from '@tanstack/react-form'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -32,6 +33,7 @@ export const SignUpForm = ({ switchAuthMode }: SignUpProps) => {
     defaultValues: {
       email: '',
       password: '',
+      confirmPassword: '',
       username: '',
     },
     onSubmit: async ({ value }) => {
@@ -39,14 +41,16 @@ export const SignUpForm = ({ switchAuthMode }: SignUpProps) => {
         data: {
           email: value.email,
           password: value.password,
+          confirmPassword: value.confirmPassword,
           username: value.username,
         },
       })
 
       if (!result.success) {
-        console.error('Sign up failed')
+        toast.error(result.message || 'Sign up failed')
         return
       }
+
       await queryClient.invalidateQueries({
         queryKey: ['currentUser'],
       })
@@ -65,10 +69,10 @@ export const SignUpForm = ({ switchAuthMode }: SignUpProps) => {
       >
         <CardHeader className="mb-6">
           <CardTitle className="text-2xl font-extrabold">
-            Welcome back
+            Create your account
           </CardTitle>
           <CardDescription>
-            Enter your credentials to access your account
+            Enter your details to get started
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-5">
@@ -94,13 +98,21 @@ export const SignUpForm = ({ switchAuthMode }: SignUpProps) => {
             type="password"
             placeholder="Enter your password"
           />
+
+          <TextInput
+            form={form}
+            name="confirmPassword"
+            label="Confirm password"
+            type="password"
+            placeholder="Re-enter your password"
+          />
         </CardContent>
         <CardFooter className="flex flex-col gap-2">
           <Button className="w-full" type="submit">
             Sign Up
           </Button>
           <p className="text-center text-muted-foreground text-sm">
-            Aleready have an account?{' '}
+            Already have an account?{' '}
             <Button
               type="button"
               className="underline cursor-pointer"

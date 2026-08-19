@@ -29,7 +29,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
 
   return (
     <Card className="h-full flex-col overflow-hidden rounded-3xl  p-2 shadow-sm">
-      <div className="relative aspect-square overflow-hidden rounded-2xl bg-[#fff2a0]">
+      <div className="relative aspect-square overflow-hidden rounded-2xl bg-secondary">
         {recipe.cover_image_url ? (
           <img
             src={recipe.cover_image_url}

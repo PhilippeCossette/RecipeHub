@@ -1,8 +1,13 @@
-import { getUserFN } from '#/db/auth'
-import { getUserLikedRecipesFn, getUserLikesFn } from '#/db/user'
-import type { CurrentUser } from '#/schema/auth'
+import { getUserFN, updateEmailFN, updatePasswordFN } from '#/db/auth'
+import { getUserLikedRecipesFn, getUserLikesFn, updateUsernameFN } from '#/db/user'
+import type {
+  CurrentUser,
+  UpdateEmailType,
+  UpdatePasswordType,
+  UpdateUsernameType,
+} from '#/schema/auth'
 import type { GetRecipesOptions } from '#/schema/recipes'
-import { queryOptions } from '@tanstack/react-query'
+import { mutationOptions, queryOptions } from '@tanstack/react-query'
 
 export const currentUserQuery = () =>
   queryOptions<CurrentUser>({
@@ -26,3 +31,18 @@ export const getLikedRecipeQuery = (
     queryFn: () => getUserLikedRecipesFn({ data: { userId, ...options } }),
   })
 }
+
+export const updateEmailMutation = () =>
+  mutationOptions({
+    mutationFn: (data: UpdateEmailType) => updateEmailFN({ data }),
+  })
+
+export const updatePasswordMutation = () =>
+  mutationOptions({
+    mutationFn: (data: UpdatePasswordType) => updatePasswordFN({ data }),
+  })
+
+export const updateUsernameMutation = () =>
+  mutationOptions({
+    mutationFn: (data: UpdateUsernameType) => updateUsernameFN({ data }),
+  })
