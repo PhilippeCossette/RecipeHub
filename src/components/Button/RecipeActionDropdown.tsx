@@ -23,7 +23,7 @@ export default function RecipeActionDropdown({ recipe }: Props) {
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>
           <Button variant="secondary" size="icon" className="p-1">
             <IconDotsVerticalFilled stroke={3} />
           </Button>
