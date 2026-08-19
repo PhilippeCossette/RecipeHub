@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react'
 
-type Theme = 'dark' | 'light'
+type Theme = Promise<'dark' | 'light'>
 
 type ThemeProviderState = {
   theme: Theme

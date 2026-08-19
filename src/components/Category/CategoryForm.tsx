@@ -6,7 +6,6 @@ import { createCategoryMutation } from '#/queries/category'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from '@tanstack/react-router'
 import { toast } from 'sonner'
-import type { Dispatch, SetStateAction } from 'react'
 
 type CategoryFormProps = {
   onSuccess: () => void

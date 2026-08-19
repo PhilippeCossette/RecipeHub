@@ -25,14 +25,14 @@ export default function NotFound({
   actionVariants = 'default',
   url,
 }: NotFoundProps) {
-  const action =
-    actionVariants === 'default' ? useGoBack() : useRedirect(url || '/')
+  const goBack = useGoBack()
+  const redirect = useRedirect(url || '/')
+  const action = actionVariants === 'default' ? goBack : redirect
 
   const animationSrc =
     type === 'recipe'
-      ? '/animations/Cooking.lottie'
-      : '/animations/nothing.lottie'
-
+      ? '/animations/nothing.lottie'
+      : '/animations/Cooking.lottie'
   return (
     <div className="flex-1 flex items-center justify-center flex-col gap-4 text-center">
       <ClientOnly fallback={<Spinner scale="3" />}>

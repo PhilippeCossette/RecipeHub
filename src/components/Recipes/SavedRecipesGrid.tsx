@@ -14,7 +14,8 @@ export default function SavedRecipesGrid({ recipes }: SavedRecipesGridProps) {
     recipes.length === 0 &&
     search.q === undefined &&
     search.category === undefined &&
-    search.sort === undefined
+    search.sort === undefined &&
+    search.cuisine === undefined
   ) {
     return (
       <NotFound
