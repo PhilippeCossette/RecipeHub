@@ -63,9 +63,7 @@ export default function CategoryForm({ onSuccess }: CategoryFormProps) {
         validator={categoryFormSchema.shape.name}
         placeholder="Name of the category"
       />
-      <Button disabled={isPending}>
-        {isPending ? 'Adding...' : 'Add Category'}
-      </Button>
+      <Button disabled={isPending}>{isPending ? 'Adding...' : 'Add'}</Button>
     </form>
   )
 }

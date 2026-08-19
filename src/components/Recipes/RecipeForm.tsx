@@ -1,6 +1,5 @@
 import { recipeFormSchema, type Recipe } from '#/schema/recipes'
 import { useForm } from '@tanstack/react-form'
-import { useRouteContext } from '@tanstack/react-router'
 import TextInput from '../ui/TextInput'
 import { Card, CardContent, CardHeader } from '../ui/card'
 import { Button } from '../ui/button'
@@ -23,13 +22,15 @@ import { getCuisinesQuery } from '#/queries/cuisine'
 import { getCategoriesQuery } from '#/queries/category'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { useState } from 'react'
+import CuisineForm from '../Cuisine/CuisineForm'
 
 interface RecipeFormProps {
   recipe?: Recipe
 }
 
 export function RecipeForm({ recipe }: RecipeFormProps) {
-  const [open, setOpen] = useState(false)
+  const [openCategoryForm, setOpenCategoryForm] = useState(false)
+  const [openCuisineForm, setOpenCuisineForm] = useState(false)
   const isEditMode = !!recipe
   const { data: categories } = useSuspenseQuery(getCategoriesQuery())
   const { data: cuisines } = useSuspenseQuery(getCuisinesQuery())
@@ -377,12 +378,20 @@ export function RecipeForm({ recipe }: RecipeFormProps) {
                 : 'Create Recipe'}
           </Button>
           <DrawerController
-            customBoolean={open}
-            customOnChange={setOpen}
+            customBoolean={openCategoryForm}
+            customOnChange={setOpenCategoryForm}
             tooltipContent="Testing"
-            label="Open Drawer"
+            label="Add Category"
           >
-            <CategoryForm onSuccess={() => setOpen(false)} />
+            <CategoryForm onSuccess={() => setOpenCategoryForm(false)} />
+          </DrawerController>
+          <DrawerController
+            customBoolean={openCuisineForm}
+            customOnChange={setOpenCuisineForm}
+            tooltipContent="Testing"
+            label="Add Cuisine"
+          >
+            <CuisineForm onSuccess={() => setOpenCuisineForm(false)} />
           </DrawerController>
         </div>
       </form>

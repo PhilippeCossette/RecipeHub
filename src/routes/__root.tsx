@@ -28,19 +28,12 @@ interface MyRouterContext {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   beforeLoad: async ({ context }) => {
-    const theme = readThemeCookie()
+    const theme = await readThemeCookie()
 
     const user = await context.queryClient.ensureQueryData(currentUserQuery())
-    const categories =
-      await context.queryClient.ensureQueryData(getCategoriesQuery())
-
-    const cuisines =
-      await context.queryClient.ensureQueryData(getCuisinesQuery())
 
     return {
       user,
-      categories,
-      cuisines,
       theme,
     }
   },

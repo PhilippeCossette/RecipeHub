@@ -7,10 +7,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from '../ui/alert-dialog'
-import { Button } from '../ui/button'
-import { IconTrash } from '@tabler/icons-react'
 import { Spinner } from '../ui/spinner'
 import type { Dispatch, SetStateAction } from 'react'
 
