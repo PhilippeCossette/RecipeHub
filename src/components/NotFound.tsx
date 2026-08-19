@@ -40,7 +40,7 @@ export default function NotFound({
           src={animationSrc}
           loop
           autoplay
-          className="aspect-auto  w-200"
+          className="aspect-auto max-w-full"
         />
       </ClientOnly>
 

@@ -2,8 +2,7 @@
 Modify Email, Password username
 Verify Email Page and Verification
 
-add cuisine and category with drawer
-fix empty state epxlorer
+
 share recipes / print
 
 
