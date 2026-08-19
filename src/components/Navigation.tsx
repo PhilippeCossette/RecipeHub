@@ -190,13 +190,16 @@ const renderMenuItem = (item: MenuItem) => {
   }
 
   return (
-    <Link to={item.url} key={item.title} className="w-max">
-      <NavigationMenuItem key={item.title}>
-        <NavigationMenuLink className="group  inline-flex h-10 w-max items-center justify-center rounded-md  px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground">
+    <NavigationMenuItem key={item.title}>
+      <NavigationMenuLink
+        asChild
+        className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
+      >
+        <Link to={item.url} className="w-max">
           {item.title}
-        </NavigationMenuLink>
-      </NavigationMenuItem>
-    </Link>
+        </Link>
+      </NavigationMenuLink>
+    </NavigationMenuItem>
   )
 }
 

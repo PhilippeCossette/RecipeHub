@@ -3,9 +3,7 @@ Modify Email, Password username
 Verify Email Page and Verification
 
 add cuisine and category with drawer
-add cuisine type
-
-category Page
+fix empty state epxlorer
 share recipes / print
 
 
@@ -14,14 +12,6 @@ Fix FrontEnd
 fix layout of log in and logout
 SLide of image as hero
 add illustration
-refactor ingredient row to a 
-{
-type Ingredient = {
-  ingredientName: string
-  ingredientQuantity: number   // 1, 0.5, 2.25 — always a number, never "1 1/2"
-  ingredientMeasure: string    // 'tbsp', 'cup', 'g', '' for whole items like "3 eggs"
-  customMeasure: string // if ingredientMeasure is "" displat the custom measure.
-}}
 
 //// Admin
 Dashboard

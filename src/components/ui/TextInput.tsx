@@ -31,7 +31,7 @@ export default function TextInput({
       <form.Field
         name={name}
         validators={{
-          onBlur: validator,
+          onChange: validator,
         }}
         children={(field: any) => {
           const isInvalid =

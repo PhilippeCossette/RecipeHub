@@ -8,7 +8,7 @@ import SaveButton from '../Button/SaveButton'
 import { useQuery } from '@tanstack/react-query'
 import { getUserLikesQuery } from '#/queries/user'
 import RecipeActionDropdown from '../Button/RecipeActionDropdown'
-import RecipePlaceHolder from '../../../public/images/no-recipe-image.svg?react'
+import RecipePlaceHolder from '@/assets/images/no-recipe-image.svg?react'
 import { getRecipeStatsQuery } from '#/queries/recipes'
 
 type RecipeCardProps = {

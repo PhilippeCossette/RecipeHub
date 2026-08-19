@@ -17,15 +17,22 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
 import { useCreateRecipeMutation } from '#/hooks/recipes/useCreateRecipeMutation'
 import { useUpdateRecipeMutation } from '#/hooks/recipes/useUpdateRecipeMutation'
 import { useGoBack } from '#/hooks/useGoBack'
+import DrawerController from '../Button/DrawerController'
+import CategoryForm from '../Category/CategoryForm'
+import { getCuisinesQuery } from '#/queries/cuisine'
+import { getCategoriesQuery } from '#/queries/category'
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 
 interface RecipeFormProps {
   recipe?: Recipe
 }
 
 export function RecipeForm({ recipe }: RecipeFormProps) {
+  const [open, setOpen] = useState(false)
   const isEditMode = !!recipe
-  const { categories } = useRouteContext({ from: '__root__' })
-  const { cuisines } = useRouteContext({ from: '__root__' })
+  const { data: categories } = useSuspenseQuery(getCategoriesQuery())
+  const { data: cuisines } = useSuspenseQuery(getCuisinesQuery())
 
   const goBack = useGoBack()
 
@@ -52,7 +59,6 @@ export function RecipeForm({ recipe }: RecipeFormProps) {
     },
 
     onSubmit: async ({ value }) => {
-      console.log('Submitting recipe form with value:', value)
       if (isEditMode) {
         updateRecipe.mutate(value)
         return
@@ -349,25 +355,35 @@ export function RecipeForm({ recipe }: RecipeFormProps) {
               placeholder="Enter Servings"
             />
           </div>
+          <Button type="button" onClick={() => form.reset()}>
+            Reset
+          </Button>
         </div>
-        <div className="flex gap-2">
+        <div className="mt-8 flex gap-2">
           <Button
             variant="destructive"
             type="button"
-            className="mt-4"
             disabled={isPending}
             onClick={goBack}
           >
             Cancel
           </Button>
 
-          <Button type="submit" className="mt-4" disabled={isPending}>
+          <Button type="submit" disabled={isPending}>
             {isPending
               ? 'Saving...'
               : isEditMode
                 ? 'Update Recipe'
                 : 'Create Recipe'}
           </Button>
+          <DrawerController
+            customBoolean={open}
+            customOnChange={setOpen}
+            tooltipContent="Testing"
+            label="Open Drawer"
+          >
+            <CategoryForm onSuccess={() => setOpen(false)} />
+          </DrawerController>
         </div>
       </form>
     </section>
